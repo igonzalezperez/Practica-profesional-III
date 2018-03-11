@@ -1,1 +1,0 @@
-[A,V,Pos,t,sensores,G]=cadera('IMU_Plot_and_Store_Rep_2.2');

@@ -1,7 +1,0 @@
-Giroscopio [deg/s]
-Magnetometro [microTesla]
-Aceleración [g]
-Donde Apunta la Flecha es Y
-Z hacia Atras de la flecha
-X hacia el lado de
-
