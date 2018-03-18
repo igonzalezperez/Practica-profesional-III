@@ -166,7 +166,6 @@ function fig = SixDOFanimation(varargin)
     
     % Set initial view
     view(View(1, :));
-
     %% Plot one sample at a time
 
     for i = 1:numPlotSamples

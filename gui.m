@@ -53,10 +53,13 @@ function GUI_OpeningFcn(hObject, ~, handles, varargin)
 % Choose default command line output for GUI
 
 mainfolder=cd;
+addpath('Quaternions');
+addpath('ximu_matlab_library');
 export='Overallyangulos';
 handles.export=export;
 handles.mainfolder=mainfolder;
 datafolder=[mainfolder '\Datasets'];
+addpath(mainfolder)
 handles.datafolder=datafolder;
 cd(mainfolder)
 cd (datafolder)
@@ -67,9 +70,6 @@ set(handles.dataexport,'String',export)
 axes(handles.axes1)
 delete( setdiff( findall(0, 'type', 'figure'), hObject ) );
 guidata(hObject, handles);
-% if strcmp(handles.datafolder,get(handles.directorio_datos,'String'))
-%     cd(get(handles.directorio_datos,'String'))
-% end
 if nargin == 3
     initial_dir = pwd;
 elseif nargin > 4
@@ -516,7 +516,6 @@ linkaxes(ax,'x');
     [pos1,vel1,posPlot1,quatPlot1,gyrX1,gyrY1,gyrZ1,accX1,accY1,accZ1,acc1,time1,acc_magFilt1,stationary1,samplePeriod1]=script2(filename,sensor,filt1,filtrobajo);
     [pos2,vel2,posPlot2,quatPlot2,gyrX2,gyrY2,gyrZ2,accX2,accY2,accZ2,acc2,time2,acc_magFilt2,stationary2,samplePeriod2]=script2(filename,sensor2,filt2,filtrobajo);
     %%
-    comp
         posPlot1=posPlot1(cti:ctf,:);
         quatPlot1=quatPlot1(cti:ctf,:);
         SixDofAnimation(posPlot1, quatern2rotMat(quatPlot1), ...
@@ -621,28 +620,6 @@ ylim([min(min(min(A(:,cti:ctf,sensor))))-0.5 max(max(max(A(:,cti:ctf,sensor))))+
 title(['Sensor ',num2str(sensor)])
 xlabel('Tiempo[s]')
 ylabel('Aceleración[g]')
-
-%%
-%plotear velocidad y posición
-% set(gca,'XTick',[])
-% axes(handles.axes2);
-% plot(t(cti:ctf),V(1,cti:ctf,sensor).*9.81,'r')
-% hold on
-% plot(t(cti:ctf),V(2,cti:ctf,sensor).*9.81,'b')
-% plot(t(cti:ctf),V(3,cti:ctf,sensor).*9.81,'g')
-% %xlabel('Tiempo[s]')
-% ylabel('Velocidad[m/s]')
-% set(gca,'XTick',[])
-% %legend('Velocidad x','Velocidad y','Velocidad z')
-% axes(handles.axes3);
-% plot(t(cti:ctf),P(1,cti:ctf,sensor).*9.81,'r')
-% hold on
-% plot(t(cti:ctf),P(2,cti:ctf,sensor).*9.81,'b')
-% plot(t(cti:ctf),P(3,cti:ctf,sensor).*9.81,'g')
-% xlabel('Tiempo[s]')
-% ylabel('Posición[m]')
-% %legend('Posición x','Posición y','Posición z')
-%%
 guidata(gcbo,handles);
 
 
@@ -733,18 +710,8 @@ xlabel('Tiempo [s]')
 ylabel('Aceleración[g]')
 handles.An=An;
 
-%%
-%plotear velocidad y posición
-% set(gca,'XTick',[])
-% axes(handles.axes2);
-% plot(t1(cti1:ctf1),Vn(cti1:ctf1,sensor).*9.81,'g')
-% ylabel('Velocidad[m/s]')
-% set(gca,'XTick',[])
-% axes(handles.axes3);
-% plot(t1(cti1:ctf1),Pn(cti1:ctf1,sensor).*9.81,'b')
-% xlabel('Tiempo[s]')
-% ylabel('Posición[m]')
-%%
+
+
 guidata(gcbo,handles);
 
 
@@ -1077,7 +1044,7 @@ h = msgbox(['1) Se deben agregar las carpetas con archivos al ''path'' de Matlab
     'N° Sensor = 1' sprintf('\n') 'Filtro = 0.5' sprintf('\n') 'Tiempo inicial = 0' ...
     sprintf('\n')  'Tiempo final = Tiempo máximo del archivo' sprintf('\n') sprintf('\n')...
     '3) Se recomienda tener una carpeta con todos los archivos .m y dentro de' ...
-    'esta una carpeta ''Datasets'' con los archivos .csv'],'Información','custom.jpg');
+    'esta una carpeta ''Datasets'' con los archivos .csv'],'Información');
 
 %%%EDIT TEXTS%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
